@@ -1,0 +1,97 @@
+<!--
+Copyright (C) 2015 Adrien Coppola
+
+This file is part of Focus Mode.
+
+Focus Mode is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Focus Mode is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stop</title>
+  <link rel="stylesheet" type="text/css" href="../css/settings.css"/>
+</head>
+
+<body>
+  <div class="banner"></div>
+
+  <div class="page">
+    <div class="article">
+      <p class="title">Focus Mode Settings</p>
+      <p class="subtitle">If you want to customize a bit your extension, you are in the right place !</p>
+      <div>
+        <p class="title1">Default blocked websites</p>
+        <p class="subtitle1">Here are the websites blocked by default. If you want to keep some of them accessible, you just need to uncheck them.</p>
+        <ul id="defaultList" class="list">
+        </ul>
+      </div>
+      <div>
+        <p class="title1">Custom blocked websites</p>
+        <p class="subtitle1">If you need to block some more distracting websites, just add it here.</p>
+        <table id="customTable">
+            <tr class="head">
+              <th class="table-checkbox">
+              </th>
+              <th>Website</th>
+              <th class="table-cross">Delete</th>
+            </tr>
+            <tr>
+              <td class="table-checkbox">
+                <input type="checkbox" class="checkbox">
+              </td>
+              <td>AWebsiteToBlock.com</td>
+              <td class="table-cross">x</td>
+            </tr>
+            <tr>
+              <td class="table-checkbox">
+                <input type="checkbox" class="checkbox">
+              </td>
+              <td>AWebsiteToBlock.com</td>
+              <td class="table-cross">x</td>
+            </tr>
+            <tr>
+              <td class="table-checkbox">
+                <input type="checkbox" class="checkbox">
+              </td>
+              <td>AWebsiteToBlock.com</td>
+              <td class="table-cross">x</td>
+            </tr>
+            <tr>
+              <td class="table-checkbox">
+                <input type="checkbox" class="checkbox">
+              </td>
+              <td>AWebsiteToBlock.com</td>
+              <td class="table-cross">x</td>
+          </tr>
+        </table>
+        <div>
+          <p class="title2">Add a website</p>
+          <input id="addingInput" type="text" style="width: 100%;">
+        </div>
+      </div>
+      <div>
+        <p class="title1">About</p>
+        <p>This extension have been done in a couple of days from an idea I had when
+          I saw my girlfriend on facebook instead of studying. It is open source
+          under GPLv3 and you can find the source code on <a href>Github</a>. If you
+          experience any issue with it, feel free to report it, I'll try to
+          correct it as soon as possible.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/settings.js"></script>
+</body>
+</html>
