@@ -20,7 +20,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 (function(){
 
   var storage = chrome.storage;
-  
+
   /* Load the websites to block and pass it to the callback */
   function loadWebsites(callback){
     /* Set or get the websites to block */
@@ -106,4 +106,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   /* deactivated by default */
   storage.local.set({"on": false});
+
+  /* Load on start */
+  loadWebsites();
 })();
