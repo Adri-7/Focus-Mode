@@ -101,11 +101,12 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
   /* Attach event callback */
   chrome.webNavigation.onCommitted.addListener(analyzeUrl);
 
-  /* Set the number of blocked attempts*/
-  storage.local.set({"blocked": 0});
-
-  /* deactivated by default */
-  storage.local.set({"on": false});
+  storage.local.get("on", function(item){
+    if(item.on === undefined){
+      /* deactivated by default & set the number of blocked attempts*/
+      storage.local.set({"on": false, "blocked": 0});
+    }
+  });
 
   /* Load on start */
   loadWebsites();

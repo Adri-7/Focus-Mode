@@ -48,7 +48,8 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   /* Activate or Deactivate the work mode */
   function onButtonClick(){
-    storage.local.get("on", function(item){
+    storage.local.get(["on", "blocked"], function(item){
+      console.log(item.on);
       var on;
 
       if(item.on === undefined || item.on === false){
@@ -58,7 +59,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
         on = false;
       }
 
-      storage.local.set({"on": on});
+      storage.local.set({"on": on, "blocked": 0});
 
       updateOnButton();
       updateIcon();
