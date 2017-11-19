@@ -39,7 +39,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
                                   '<input type="checkbox" class="checkbox" {{ checked }}>' +
                                 '</td>' +
                                 '<td>{{ el }}</td>' +
-                                '<td  class="table-cross">x</td>' +
+                                '<td  class="table-cross disable-select">x</td>' +
                               '</tr>';
 
   /* Fill a template with the data dictionnary passed*/
