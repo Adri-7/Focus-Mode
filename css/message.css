@@ -22,13 +22,21 @@ html{
   width: 100%;
   margin: 0 0;
 }
+
 body{
   height: 100%;
   width: 100%;
   margin: 0 0;
-  background-color: #e9e9e9;
+  display: flex;
+  flex-direction: column;
 }
-div{
+
+div.line{
+  height: 25px;
+  background-color: teal;
+}
+
+div.center{
   width: 100%;
   height: 100%;
   display:flex;
