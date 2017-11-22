@@ -21,24 +21,44 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 <html>
 <head>
   <title>Focus Mode</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
   <link rel="stylesheet" type="text/css" href="../css/popup.css">
 </head>
 
 <body>
-  <div class="title">Focus Mode</div>
+  <h2>Focus Mode</h2>
 
-  <div class="attempts">
-    <number>0</number> Distraction attempts
+  <div class="infos">
+    <div>
+      <img src="../images/timer.svg" width="25"></img>
+      00:00:00
+    </div>
+
+    <div>
+      <img src="../images/block.svg" width="20" style="margin-left: 2.5px; margin-right:12.5px"></img>
+      <number>0</number> distraction(s) attempt(s)
+    </div>
   </div>
 
   <div class="buttons">
-    <a id="onButton" href class="button raised">
+    <button id="onButton" class="button-primary">
       Activate
-    </a>
-
-    <a id="optionsButton" href class="button raised">
+    </button>
+    <button id="optionsButton" class="">
       Settings
-    </a>
+    </button>
   </div>
 
   <script src="../js/popup.js"></script>

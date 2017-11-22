@@ -17,76 +17,58 @@ You should have received a copy of the GNU General Public License
 along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 
+/* Popup body styling */
 body{
-  background-color: #f9f9f9;
-  color: rgb(20, 20, 20)
-  padding: 5px;
-  width: 200px;
-  font-family: Segoe UI;
-  font-size: 13px;
+  padding: 2.5px 5px 0 5px;
+  width: 275px;
 }
 
-.title{
-  margin-left: 15px;
-  margin-right: 15px;
-  height: 22px;
-  font-size: 17px;
+/* Popup title customization */
+h2{
   text-align: center;
-  height: 30px;
-  border-bottom: 1px dotted gray;
+  color: white;
+  background-color: #009688;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
-.attempts{
-  margin: 40px 10px;
-  text-align: center;
+/* Informations lines */
+.infos{
+  margin-bottom: 5px;
 }
 
-number{
-  display: inline-block;
-  height: 32px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 32px;
-  padding: 0 12px;
-  border-radius: 16px;
-  background-color: #008080;
-  margin: 0 5px;
-}
-
-.buttons{
+.infos > *{
+  line-height: 40px;
+  padding-left: 10px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.button{
-  display: inline-block;
-  position: relative;
-  width: 140px;
-  height: 32px;
-  line-height: 32px;
-  border-radius: 2px;
-  font-size: 0.9em;
-  background-color: #fff;
-  color: #008080;
-  text-transform: uppercase;
-  margin: 5px;
-  text-align: center;
-  text-decoration: none;
+.infos > *:hover{
+  background-color: #e0f2f1;
 }
 
-.button:hover {
-  background-color: #a7d4d4;
+.infos img{
+   /* HACK second image smaller than the first (see HTML inline style correction) */
+    margin-right: 10px;
 }
 
-.button.raised{
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.2s;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+number{
+  margin-right: 2.5px;
+  font-weight: 600;
 }
 
-.button.raised:active {
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-  transition-delay: 0s;
+/* Buttons */
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons > * {
+  width: 100%;
+  margin-bottom: 2.5px;
+}
+
+.buttons > button:first-child{
+  margin-right: 5px;
 }
