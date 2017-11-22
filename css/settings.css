@@ -17,6 +17,18 @@ You should have received a copy of the GNU General Public License
 along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 
+/* Variables */
+/* teal - teal lighten 4 - teal darken 4 from Materialize colors */
+:root{
+  --primary: #009688;
+  --primary-light: #e0f2f1;
+  --primary-darken: #004d40;
+  --content-width: 580px;
+  --h1-bar-height: 80px;
+  --h2-bar-height: 40px;
+}
+
+/* General */
 html{
   width: 100%;
   height: 100%;
@@ -28,239 +40,78 @@ body{
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #f9f9f9;
-  font-family: Segoe UI;
-  color: #131313
+  margin-top: var(--h1-bar-height);
 }
 
-div{
-  margin: 0 0 10px 0;
-}
-
-a{
-  color: #008080;
-}
-
-p{
-  text-align: justify;
-}
-
-.disable-select {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.banner{
-  position: absolute;
+/* Titles */
+.h1-banner{
   top: 0;
   right: 0;
   width: 100%;
-  height: 40%;
-  background-color: #008080;
+  height: var(--h1-bar-height);
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 5;
 }
 
-.page{
-  position: absolute;
-  top: 20px;
+.h1-banner > h1 {
+  margin: 0;
+}
+
+.h2-banner{
+  background-color: var(--primary-light);
+  height: var(--h2-bar-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  position: sticky;
+  top: var(--h1-bar-height);
+  z-index: 4;
   width: 100%;
 }
 
-.article{
-  background-color: #ffffff;
-  box-shadow: 1px 1px 8px #151515;
-}
-
-@media screen and (min-width: 745px){
-  .article{
-    width: 600px;
-    padding: 64px;
-    margin: 10px auto;
-  }
-}
-
-@media screen and (max-width: 745px){
-  .article{
-    width: -webkit-calc(100% - 20px);
-    height: 100%;
-    margin: 0 0;
-    padding: 10px;
-  }
-
-  .banner{
-    display: none;
-  }
-
-  .page{
-    position: relative;
-    top: 0;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-}
-
-.title{
-  margin: 0 0 20px 0;
-  padding: 0;
-  font-size: 35px;
-  text-align: center;
+.h2-banner > h2{
+  margin: 0;
+  padding: 0 10px;
+  width: var(--content-width);
+  text-overflow: ellipsis;
 }
 
 .subtitle{
   margin: 0 0 10px 0;
   font-style: italic;
-  font-size: 14px;
 }
 
-.title1{
-  margin: 20px 0 5px 0;
-  font-size: 20px;
-  color: #008080;
-}
-
-.subtitle1{
-  margin: 5px 0 10px 0;
-  font-size: 12px;
-  font-style: italic;
-  color: #6e6e6e;
-}
-
-.title2{
-  margin: 10px 0 5px 0;
-  font-size: 14px;
-  color: #008080;
-}
-
-/* Checkbox style from Sam example @ http://codepen.io/Sambego/pen/zDLxe */
-.list {
-  margin: .5rem;
-  list-style-type:none;
-  padding-left: 0;
-}
-
-.list__item {
-  margin: 0 0 .5rem 0;
-  padding: 0;
-}
-
-.label--checkbox {
-  position: relative;
-  margin: .5rem;
-  line-height: 135%;
-  cursor: pointer;
-}
-
-.checkbox {
-  position: relative;
-  top: -0.15rem;
-  margin: 0 1rem 0 0;
-  cursor: pointer;
-}
-.checkbox:before {
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  content: "";
-  position: absolute;
-  left: 0;
-  z-index: 1;
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid #f2f2f2;
-}
-.checkbox:checked:before {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  height: .5rem;
-  border-color: #008080;
-  border-top-style: none;
-  border-right-style: none;
-}
-.checkbox:after {
-  content: "";
-  position: absolute;
-  top: -0.125rem;
-  left: 0;
-  width: 1.1rem;
-  height: 1.1rem;
-  background: #fff;
-  cursor: pointer;
-}
-
+/* Layout */
 .content {
-  -webkit-animation-duration: 0.4s;
-  animation-duration: 0.4s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: slideUp;
-  animation-name: slideUp;
-  -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
-@-webkit-keyframes slideUp {
-  0% {
-    -webkit-transform: translateY(6.25rem);
-    transform: translateY(6.25rem);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
+.content p {
+  text-align: justify;
 }
-@keyframes slideUp {
-  0% {
-    -webkit-transform: translateY(6.25rem);
-    transform: translateY(6.25rem);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-/* End checkbox style */
 
-/* Table Style */
-table {
-  border-collapse: collapse;
+.content > .section {
+  padding: 0 10px;
+}
+
+.content > .section > * {
+  max-width: var(--content-width);
+}
+
+/* Custom table style */
+td {
   width: 100%;
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:hover{
-  background-color: #f2f2f2;
-}
-
-tr.head:hover{
-  background-color: #ffffff;
-}
-
-th {
-  font-weight: bold;
-  border-bottom: 1px solid #ddd;
-}
-
-.table-checkbox{
-  width: 28px;
-}
-
-.table-cross{
-  width: 20px;
-}
-
-td.table-cross{
-  cursor: pointer;
-  vertical-align: text-top;
-  text-align: center;
-}
-/* End Table Style */
