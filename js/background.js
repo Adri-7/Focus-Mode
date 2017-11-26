@@ -23,36 +23,28 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   /* Load the websites to block and pass it to the callback */
   function loadWebsites(callback){
-    /* Set or get the websites to block */
-    var websites;
+    var websites = [];
 
-    storage.local.get(["defaultWebsites", "customWebsites"], function(items){
-      //First, load the default websites to block
-      if(items.defaultWebsites === undefined){
-        websites =
-        [
-          {"url" : "facebook.com", "on" : true},
-          {"url" : "twitter.com", "on" : true},
-          {"url" : "linkedin.com", "on" : true},
-          {"url" : "instagram.com", "on" : true},
-          {"url" : "youtube.com", "on" : true},
-          {"url" : "dailymotion.com", "on" : true},
-          {"url" : "flickr.com", "on" : true},
-        ];
+    storage.local.get("lists", function(items){
+      //TODO handle old lists to keep backward compatibility ?
 
-        storage.local.set({"defaultWebsites": websites});
-      }
-      else {
-        websites = items.defaultWebsites;
+      if(!items.lists){
+        //TODO prepare an init method to prefill lists property
+        storage.local.set({'lists': [{name:"Social", urls:["facebook.com", "youtube.com", "twitter.com"], on: true}, {name: "test", urls:["blabla.fr", "test.org"], on: true}]});
+
+        return;
       }
 
-      //Then load the customs websites to block
-      if(items.customWebsites === undefined){
-        storage.local.set({"customWebsites": []});
+      for(var index in items.lists){
+        var list = items.lists[index];
+
+        if(list.on){
+          websites.concat(list.urls);
+        }
       }
-      else {
-        websites = websites.concat(items.customWebsites);
-      }
+
+      console.log(items.lists);
+      console.log(websites);
 
       //Call the callback and pass the resulting array
       if(typeof callback === "function"){
@@ -85,6 +77,8 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
           if(details.frameId === 0 && urlContains(details.url, websites)){
             var id = details.tabId;
 
+            //Redirect to the "return to work message"
+            //TODO find a way to keep old URL in the tab ?
             chrome.tabs.update(id, {"url": "html/message.html"});
 
             /* update the number of blocked attempts */
