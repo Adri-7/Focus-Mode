@@ -1,0 +1,25 @@
+{
+  "name": "focus-mode",
+  "version": "1.2.0",
+  "description": "Chrome extension to stay focused during work periods by blocking distracting websites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adri-7/Focus-Mode.git"
+  },
+  "keywords": [
+    "focus",
+    "distraction",
+    "chrome",
+    "extension"
+  ],
+  "author": "Adrien Coppola",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Adri-7/Focus-Mode/issues"
+  },
+  "homepage": "https://github.com/Adri-7/Focus-Mode#readme"
+}
