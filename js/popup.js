@@ -49,11 +49,11 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
   /* Activate or Deactivate the work mode */
   function onButtonClick(){
     storage.local.get(["on", "blocked"], function(item){
-      console.log(item.on);
       var on;
 
       if(item.on === undefined || item.on === false){
         on = true;
+        startStopwatch();
       }
       else {
         on = false;
@@ -85,10 +85,63 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
     });
   }
 
+  /* store starting time */
+  function startStopwatch(){
+    var start = Date.now();
+
+    storage.local.set({ "startedTime": start });
+
+    setInterval(function(){
+      updateStopwatch();
+    }, 1000);
+  }
+
+  /* function to update stopwatch in the view */
+  function updateStopwatch(){
+    storage.local.get(["startedTime", "on"], function(items){
+      var stopwatch = document.getElementById("stopwatch");
+
+      if(items.on && items.startedTime){
+        stopwatch.innerText = formatStopwatch(Date.now() - items.startedTime);
+      } else {
+        stopwatch.innerText = "00:00:00";
+      }
+    });
+  }
+
+  function formatStopwatch(value){
+    var hours, minutes, seconds;
+
+    /* Split milliseconds into hours, minutes and seconds */
+    hours = Math.floor(value / 3600000);
+    value = value % 3600000;
+    minutes = Math.floor(value / 60000);
+    value = value % 60000;
+    seconds = Math.floor(value / 1000);
+
+    /* Format the resulting string */
+    var result = (hours < 10) ? ("0" + hours) : hours;
+    result += ":";
+    result += (minutes < 10) ? ("0" + minutes) : minutes;
+    result += ":";
+    result += (seconds < 10) ? ("0" + seconds) : seconds;
+
+    return result;
+  }
+
   //Update on each popup openning
   updateAttempts();
   updateOnButton();
   updateIcon();
+  updateStopwatch();
+
+  storage.local.get("on", function(items){
+    if(items.on){
+      setInterval(function(){
+        updateStopwatch();
+      }, 1000);
+    }
+  });
 
   /* Attach onclick functions */
   var onButton = document.getElementById("onButton");
