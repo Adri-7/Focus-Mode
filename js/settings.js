@@ -20,18 +20,13 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 (function(){
   var storage = chrome.storage;
 
-  var listElementTemplate = '<li id="{{ id }}" class="list__item">' +
-                                '<label class="label--checkbox">' +
-                                  '<input type="checkbox" class="checkbox" {{ checked }}>' +
-                                  '{{ el }}' +
-                                '</label>' +
-                              '</li>';
+  /* Load lists from storage */
+  loadWebsites();
+  document.getElementById("addingInput").addEventListener("keypress", addCustomWebsite);
 
-  var tableHead = '<tr class="head">' +
-                    '<th class="table-checkbox">' +
-                    '&#10004;</th>' +
+  /* HTML templates */
+  var tableHead = '<tr>' +
                     '<th>Website</th>' +
-                    '<th class="table-cross">Delete</th>' +
                   '</tr>';
 
   var tableElementTemplate = '<tr id="{{ id }}">' +
@@ -42,7 +37,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
                                 '<td  class="table-cross disable-select">x</td>' +
                               '</tr>';
 
-  /* Fill a template with the data dictionnary passed*/
+  /* Fill a template with the data dictionnary passed */
   function fillTemplate(template, data){
     var result = template;
 
@@ -177,8 +172,4 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
       customCheckboxes.item(i).addEventListener("change", toogleCustomElement);
     }
   }
-
-  loadWebsites();
-  document.getElementById("addingInput").addEventListener("keypress", addCustomWebsite);
-
 })();
