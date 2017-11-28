@@ -19,7 +19,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Singleton to handle chrome storage operations (currently only local) */
 
-const localstorage = chrome.local.storage;
+const localstorage = chrome.storage.local;
 
 class Storage {
   get(items){
