@@ -1,0 +1,19 @@
+{
+  "on": false,
+  "stats": {
+    "attempts": 0,
+    "startedTime": null
+  },
+  "lists": [
+    {
+      "name": "Social",
+      "urls": [
+        "facebook.com",
+        "youtube.com",
+        "twitter.com",
+        "instagram.com"
+      ],
+      "on": true
+    }
+  ]
+}

@@ -20,28 +20,32 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 /* Singleton to store extension's state */
 
 import storage from './storage.js';
+import defaultData from './initData.json';
 
 class State {
   constructor(){
     this.on = false;
-    this.websites = [];
-    this.stats = {
-      attempts: 0,
-      startedTime: null
-    }
+    this.lists = [];
+    this.stats = {};
   }
 
   loadFromStorage(){
-    storage.get(["on", "websites", "stats"])
+    storage.get(["on", "lists", "stats"])
       .then((items) => {
         if(items.on)
           this.on = items.on;
+        else
+          this.on = defaultData.on;
 
         if(items.website)
-          this.websites = items.websites;
+          this.lists = items.lists;
+        else
+          this.lists = defaultData.lists;
 
         if(items.stats)
           this.stats = items.stats;
+        else
+          this.stats = defaultData.stats;
       })
       .catch((err) => {
         console.log(err);
@@ -51,7 +55,7 @@ class State {
   saveToStorage(){
     storage.set({
       "on": this.on,
-      "websites": this.websites,
+      "lists": this.lists,
       "stats": this.stats
     });
   }
