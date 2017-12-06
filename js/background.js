@@ -38,6 +38,8 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
           {"url" : "youtube.com", "on" : true},
           {"url" : "dailymotion.com", "on" : true},
           {"url" : "flickr.com", "on" : true},
+          {"url" : "reddit.com", "on" : true},
+          {"url" : "tumblr.com", "on" : true},
         ];
 
         storage.local.set({"defaultWebsites": websites});
