@@ -56,7 +56,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   /* Load the default and custom list from chrome storage */
   function loadWebsites(){
-    storage.local.get(["defaultWebsites", "customWebsites"], function(items){
+    storage.local.get(["defaultWebsites", "customWebsites", 'focusTime'], function(items){
       /* Default websites loading */
       if(items.defaultWebsites !== undefined){
         var defaults = items.defaultWebsites;
@@ -86,6 +86,11 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
         }
 
         attachEvents();
+      }
+      if(items.focusTime !== undefined){
+        var focusTime = items.focusTime;
+        var timeInput = document.getElementById("timeInput");
+        timeInput.value = focusTime;
       }
     });
   }
@@ -140,6 +145,15 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
     }
   }
 
+  function addFocusTime(e){
+    e.preventDefault();
+    var input = document.getElementById("timeInput");
+    storage.local.set({"focusTime": input.value}, function(){
+      loadWebsites();
+      alert("Focus Mode time saved.");
+    });
+  }
+
   function deleteCustomWebsite(e){
     var id = this.parentElement.id.replace("custom", "");
 
@@ -180,5 +194,6 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   loadWebsites();
   document.getElementById("addingInput").addEventListener("keypress", addCustomWebsite);
+  document.getElementById("timeInputForm").addEventListener("submit", addFocusTime);
 
 })();

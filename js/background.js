@@ -26,7 +26,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
     /* Set or get the websites to block */
     var websites;
 
-    storage.local.get(["defaultWebsites", "customWebsites"], function(items){
+    storage.local.get(["defaultWebsites", "customWebsites", "focusTime"], function(items){
       //First, load the default websites to block
       if(items.defaultWebsites === undefined){
         websites =
@@ -53,6 +53,9 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
       else {
         websites = websites.concat(items.customWebsites);
       }
+      if(items.focusTime === undefined){
+        storage.local.set({"focusTime": ''});
+      }
 
       //Call the callback and pass the resulting array
       if(typeof callback === "function"){
@@ -75,25 +78,54 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
     return result;
   }
 
+  function getInt(num_str) {
+    var int = parseInt(num_str);
+    if (!isNaN(int)) {
+      return int;
+    }
+  }
+
+  function isFocusModeTime(focusTime) {
+    if(focusTime) {
+      var [start_str, end_str] = focusTime.split('-');
+      if (start_str && end_str) {
+        var [sh, sm] = start_str.split(':').map(num => getInt(num));
+        var [eh, em] = end_str.split(':').map(num => getInt(num));
+        if([sh, sm, eh, em].indexOf(undefined) < 0) {
+          var curr_time_str = new Date().toTimeString().split(' ')[0];
+          var [curr_hour, curr_min] = curr_time_str.split(':');
+          if ((curr_hour > eh || curr_hour < sh)) {
+            return false;
+          }
+          if ((curr_hour == eh && curr_min >= em) || (curr_hour == sh && curr_min <= sm)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
   /* Redirect if necessary */
   function analyzeUrl(details){
-    storage.local.get("on", function(item){
+    storage.local.get(["on", "focusTime"], function(item){
       if(item.on === true){
+        if (isFocusModeTime(item.focusTime)) {
+          loadWebsites(function(websites){
+            /* FrameId test to be sure that the navigation event doesn't come from a subframe */
+            if(details.frameId === 0 && urlContains(details.url, websites)){
+              var id = details.tabId;
 
-        loadWebsites(function(websites){
-          /* FrameId test to be sure that the navigation event doesn't come from a subframe */
-          if(details.frameId === 0 && urlContains(details.url, websites)){
-            var id = details.tabId;
+              chrome.tabs.update(id, {"url": "html/message.html"});
 
-            chrome.tabs.update(id, {"url": "html/message.html"});
-
-            /* update the number of blocked attempts */
-            storage.local.get("blocked", function(item){
-              storage.local.set({"blocked": item.blocked+1});
-              console.log(item);
-            });
-          }
-        });
+              /* update the number of blocked attempts */
+              storage.local.get("blocked", function(item){
+                storage.local.set({"blocked": item.blocked+1});
+                console.log(item);
+              });
+            }
+          });
+        }
       }
     });
   }
@@ -104,7 +136,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
   storage.local.get("on", function(item){
     if(item.on === undefined){
       /* deactivated by default & set the number of blocked attempts*/
-      storage.local.set({"on": false, "blocked": 0});
+      storage.local.set({"on": false, "blocked": 0, "focusTime": ''});
     }
   });
 
