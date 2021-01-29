@@ -85,7 +85,20 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
           if(details.frameId === 0 && urlContains(details.url, websites)){
             var id = details.tabId;
 
-            chrome.tabs.update(id, {"url": "html/message.html"});
+            storage.local.get(["redirectWebsite"], function(items) {
+              
+              if(items.redirectWebsite) {
+                if(!items.redirectWebsite.url.length) {
+                  chrome.tabs.remove(id, function(tab) {
+                    chrome.tabs.create({ } ,function() {})
+                  })
+                } else {
+                  chrome.tabs.update(id, {"url":  items.redirectWebsite.url});
+                }
+              } else {
+                chrome.tabs.update(id, {"url": "html/message.html"});
+              }
+            })
 
             /* update the number of blocked attempts */
             storage.local.get("blocked", function(item){
