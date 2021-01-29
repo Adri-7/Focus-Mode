@@ -56,7 +56,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   /* Load the default and custom list from chrome storage */
   function loadWebsites(){
-    storage.local.get(["defaultWebsites", "customWebsites"], function(items){
+    storage.local.get(["defaultWebsites", "customWebsites", "redirectWebsite"], function(items){
       /* Default websites loading */
       if(items.defaultWebsites !== undefined){
         var defaults = items.defaultWebsites;
@@ -85,8 +85,16 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
           table.innerHTML += element;
         }
 
-        attachEvents();
       }
+
+
+      var table = document.getElementById("redirectTable");
+      table.innerHTML = tableHead;
+      if(items.redirectWebsite) {
+        var website = items.redirectWebsite;
+        table.innerHTML += fillTemplate(tableElementTemplate, {"id": "redirect0", "el": website.url, "checked": website.on ? "checked" : ""});
+      }
+      attachEvents();
     });
   }
 
@@ -140,6 +148,20 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
     }
   }
 
+
+
+  function setRedirectWebsite(e){
+    if(e.keyCode === 13){
+      var input = document.getElementById("redirectInput");
+
+
+      storage.local.set({"redirectWebsite": {url: input.value, on: true}}, function(){
+        loadWebsites();
+      });
+
+    }
+  }
+
   function deleteCustomWebsite(e){
     var id = this.parentElement.id.replace("custom", "");
 
@@ -157,11 +179,21 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   function attachEvents(){
     /* Deleting event */
-    var crosses = document.getElementsByClassName("table-cross");
+    var crosses = document.querySelectorAll("#customTable .table-cross");
 
     /* Skip the first element because we don't want to affect the first line */
     for(var i = 1; i < crosses.length; i++){
       crosses.item(i).addEventListener("click", deleteCustomWebsite);
+    }
+
+
+    var redirect = document.querySelectorAll("#redirectTable .table-cross");
+    if(redirect && redirect[1]) {
+      redirect[1].addEventListener("click", () => {
+        storage.local.remove(["redirectWebsite"], function() {
+          loadWebsites();
+        });
+      })
     }
 
     /* Checking event */
@@ -180,5 +212,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   loadWebsites();
   document.getElementById("addingInput").addEventListener("keypress", addCustomWebsite);
+
+  document.getElementById("redirectInput").addEventListener("keypress", setRedirectWebsite);
 
 })();
